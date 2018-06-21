@@ -134,9 +134,9 @@ namespace dnSpy.AsmEditor.Compiler {
 				}
 			}
 
-			var importer = new ModuleImporter(module);
+			var importer = new ModuleImporter(module, module.Context.AssemblyResolver);
 			try {
-				importer.Import(module.Context.AssemblyResolver, result.Value.RawBytes, result.Value.DebugFile, ModuleImporterOptions.None);
+				importer.Import(result.Value.RawBytes, result.Value.DebugFile, ModuleImporterOptions.None);
 			}
 			catch (Exception ex) {
 				Contracts.App.MsgBox.Instance.Show(ex);
@@ -160,7 +160,7 @@ namespace dnSpy.AsmEditor.Compiler {
 			public IAssembly Assembly { get; }
 			public byte[] RawBytes { get; }
 			public DebugFileResult DebugFile { get; }
-			public ModuleResult(IAssembly assembly, byte[] bytes, in DebugFileResult debugFile) {
+			public ModuleResult(IAssembly assembly, byte[] bytes, DebugFileResult debugFile) {
 				Assembly = assembly;
 				RawBytes = bytes;
 				DebugFile = debugFile;

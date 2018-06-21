@@ -38,7 +38,7 @@ namespace dnSpy.AsmEditor.Compiler {
 			}
 		}
 
-		public EditClassVM(in EditCodeVMOptions options, IMemberDef defToEdit, IList<MethodSourceStatement> statementsInMethodToEdit)
+		public EditClassVM(EditCodeVMOptions options, IMemberDef defToEdit, IList<MethodSourceStatement> statementsInMethodToEdit)
 			: base(options, defToEdit as TypeDef ?? defToEdit.DeclaringType) {
 			this.defToEdit = defToEdit;
 			nonNestedTypeToEdit = defToEdit as TypeDef ?? defToEdit.DeclaringType;
@@ -68,7 +68,7 @@ namespace dnSpy.AsmEditor.Compiler {
 			return Task.FromResult(result);
 		}
 
-		protected override void Import(ModuleImporter importer, in CompilationResult result) =>
-			importer.Import(sourceModule.Context.AssemblyResolver, result.RawFile, result.DebugFile, nonNestedTypeToEdit);
+		protected override void Import(ModuleImporter importer, CompilationResult result) =>
+			importer.Import(result.RawFile, result.DebugFile, nonNestedTypeToEdit);
 	}
 }
